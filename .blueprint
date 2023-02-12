@@ -1,0 +1,25 @@
+created:
+    - database/factories/RoleFactory.php
+    - database/factories/UserFactory.php
+    - database/factories/EmployeeFactory.php
+    - database/factories/ContactInfoFactory.php
+    - database/factories/SkillFactory.php
+    - database/migrations/2023_02_12_141848_create_roles_table.php
+    - database/migrations/2023_02_12_141849_create_users_table.php
+    - database/migrations/2023_02_12_141850_create_employees_table.php
+    - database/migrations/2023_02_12_141851_create_contact_infos_table.php
+    - database/migrations/2023_02_12_141852_create_skills_table.php
+    - database/migrations/2023_02_12_141853_create_employee_skill_table.php
+    - app/Models/Role.php
+    - app/Models/User.php
+    - app/Models/Employee.php
+    - app/Models/ContactInfo.php
+    - app/Models/Skill.php
+    - database/seeders/RoleSeeder.php
+    - database/seeders/SkillSeeder.php
+models:
+    User: { name: 'string:100', role_id: 'id foreign:Role.id', google_id: 'string:100 nullable', avatar: 'string:100 nullable', status: 'integer default:1 index', created_at: unsignedinteger, updated_at: unsignedinteger, timestamps: false, relationships: { hasOne: Employee } }
+    Role: { name: 'string:100 unique', created_at: unsignedinteger, updated_at: unsignedinteger, timestamps: false, relationships: { hasMany: User } }
+    Employee: { birth: 'datetime nullable', user_id: 'id foreign:User.id', created_at: unsignedinteger, updated_at: unsignedinteger, salary: unsignedinteger, martial_status: 'enum:single,married,divorced default:single', bonus: 'decimal:8,2 nullable', timestamps: false, relationships: { belongsToMany: Skill, hasOne: ContactInfo } }
+    ContactInfo: { phone: 'string:100 unique', email: 'string:100 unique', employee_id: 'id foreign:Employee.id', created_at: unsignedinteger, updated_at: unsignedinteger, timestamps: false }
+    Skill: { name: 'string:100 unique', created_at: unsignedinteger, updated_at: unsignedinteger, timestamps: false, relationships: { belongsToMany: Employee } }

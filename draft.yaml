@@ -1,0 +1,46 @@
+models:
+  Role:
+    name: string:100 unique
+    created_at: unsignedinteger
+    updated_at: unsignedinteger
+    timestamps: false
+    relationships:
+      hasMany: User
+  User:
+    name: string:100
+    role_id: id foreign:Role.id
+    google_id: string:100 nullable
+    avatar: string:100 nullable
+    status: integer default:1 index
+    created_at: unsignedinteger
+    updated_at: unsignedinteger
+    timestamps: false
+    relationships:
+      hasOne: Employee
+  Employee:
+    birth: datetime nullable
+    user_id: id foreign:User.id
+    created_at: unsignedinteger
+    updated_at: unsignedinteger
+    salary: unsignedinteger
+    martial_status: enum:single,married,divorced default:single
+    bonus: decimal:8,2 nullable
+    timestamps: false
+    relationships:
+      belongsToMany: Skill
+      hasOne: ContactInfo
+  ContactInfo:
+    phone: string:100 unique
+    email: string:100 unique
+    employee_id: id foreign:Employee.id
+    created_at: unsignedinteger
+    updated_at: unsignedinteger
+    timestamps: false
+  Skill:
+    name: string:100 unique
+    created_at: unsignedinteger
+    updated_at: unsignedinteger
+    timestamps: false
+    relationships:
+      belongsToMany: Employee
+seeders: Role,Skill
