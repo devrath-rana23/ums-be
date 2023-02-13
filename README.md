@@ -44,3 +44,6 @@ composer require laravel/socialite
 
 # Run scheduler locally
 php artisan schedule:work
+https://www.honeybadger.io/blog/job-queues-and-workers-in-laravel-apps/
+https://laravel.com/docs/9.x/queues#creating-jobs
+https://laravel.com/docs/9.x/scheduling#scheduling-artisan-commands

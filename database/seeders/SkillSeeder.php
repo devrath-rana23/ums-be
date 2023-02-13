@@ -14,10 +14,24 @@ class SkillSeeder extends Seeder
      */
     public function run()
     {
-        $inputData = [
-            ['id' => 1, 'name' => 'laravel', 'created_at' => time(), 'updated_at' => time()],
-            ['id' => 2, 'name' => 'php', 'created_at' => time(), 'updated_at' => time()],
-        ];
-        Skill::insert($inputData);
+        // $inputData = [
+        //     ['id' => 1, 'name' => 'laravel', 'created_at' => time(), 'updated_at' => time()],
+        //     ['id' => 2, 'name' => 'php', 'created_at' => time(), 'updated_at' => time()],
+        // ];
+        // Skill::insert($inputData);
+
+        // Skill::factory()
+        //     ->count(50000)
+        //     ->create(['created_at' => time(), 'updated_at' => time()]);
+
+        for ($i = 50000; $i < 1150000; $i++) {
+            Skill::insert(
+                [
+                    'name' => "{$i}-laravel-{$i}",
+                    'created_at' => time(),
+                    'updated_at' => time()
+                ]
+            );
+        }
     }
 }
