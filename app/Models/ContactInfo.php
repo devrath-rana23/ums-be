@@ -43,4 +43,15 @@ class ContactInfo extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public static function createContactInfo($request)
+    {
+        $contact = new self();
+        $contact->phone = $request->phone;
+        $contact->email = $request->email;
+        $contact->employee_id = $request->employee_id;
+        $contact->created_at = time();
+        $contact->updated_at = time();
+        return $contact->save();
+    }
 }

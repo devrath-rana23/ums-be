@@ -40,4 +40,21 @@ class Skill extends Model
     {
         return $this->belongsToMany(Employee::class);
     }
+
+    public static function createSkill($request)
+    {
+        $skill = new self();
+        $skill->name = $request->name;
+        $skill->created_at = time();
+        $skill->updated_at = time();
+        $skill->save();
+    }
+
+    public static function updateSkill($request, $id)
+    {
+        $skill = self::find($id);
+        $skill->name = $request->name;
+        $skill->updated_at = time();
+        $skill->save();
+    }
 }

@@ -2,6 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\UtilizationController;
+use App\Http\Controllers\ResourceAllocationController;
+use App\Http\Controllers\ExportCsvController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,16 +21,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(static function () {
+    Route::group(['middleware' => ['auth:sanctum']], static function () {
+        Route::middleware([CheckAdmin::class])->group(function () {
+            Route::get(
+                "/employee",
+                [App\Http\Controllers\Api\EmployeeController::class, 'index']
+            )->name('employee.list');
+            Route::get(
+                "/employee/{id}",
+                [App\Http\Controllers\Api\EmployeeController::class, 'show']
+            )->name('employee.details');
+            Route::get(
+                "/employee/edit/{id}",
+                [App\Http\Controllers\Api\EmployeeController::class, 'edit']
+            )->name('employee.edit');
+            Route::put(
+                "/employee/{id}",
+                [App\Http\Controllers\Api\EmployeeController::class, 'update']
+            )->name('employee.update');
+            Route::get(
+                "/employee/create/{id}",
+                [App\Http\Controllers\Api\EmployeeController::class, 'create']
+            )->name('employee.create');
+            Route::post(
+                "/employee/{id}",
+                [App\Http\Controllers\Api\EmployeeController::class, 'store']
+            )->name('employee.store');
+            Route::delete(
+                "/employee/{id}",
+                [App\Http\Controllers\Api\EmployeeController::class, 'destroy']
+            )->name('employee.destroy');
+        });
+        Route::middleware([CheckSuperAdmin::class])->group(function () {
+            Route::apiResource("roles", App\Http\Controllers\Api\RoleController::class);
+            Route::apiResource("skills", App\Http\Controllers\Api\SkillController::class);
+        });
+    });
 });
-
-Route::apiResource("roles", App\Http\Controllers\Api\RoleController::class);
-Route::apiResource("skills", App\Http\Controllers\Api\SkillController::class);
-Route::get("/employee", [App\Http\Controllers\Api\EmployeeController::class, 'index'])->name('employee.list');
-Route::get("/employee/{id}", [App\Http\Controllers\Api\EmployeeController::class, 'show'])->name('employee.details');
-Route::get("/employee/edit/{id}", [App\Http\Controllers\Api\EmployeeController::class, 'edit'])->name('employee.edit');
-Route::put("/employee/{id}", [App\Http\Controllers\Api\EmployeeController::class, 'update'])->name('employee.update');
-Route::get("/employee/create/{id}", [App\Http\Controllers\Api\EmployeeController::class, 'create'])->name('employee.create');
-Route::post("/employee/{id}", [App\Http\Controllers\Api\EmployeeController::class, 'store'])->name('employee.store');
-Route::delete("/employee/{id}", [App\Http\Controllers\Api\EmployeeController::class, 'destroy'])->name('employee.destroy');

@@ -40,4 +40,21 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public static function createRole($request)
+    {
+        $role = new self();
+        $role->name = $request->name;
+        $role->created_at = time();
+        $role->updated_at = time();
+        $role->save();
+    }
+
+    public static function updateRole($request, $id)
+    {
+        $role = self::find($id);
+        $role->name = $request->name;
+        $role->updated_at = time();
+        $role->save();
+    }
 }

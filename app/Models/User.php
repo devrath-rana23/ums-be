@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Model
 {
+    use HasApiTokens;
     use HasFactory;
+    use Notifiable;
 
     /**
      * Indicates if the model should be timestamped.
@@ -49,5 +54,15 @@ class User extends Model
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public static function createUser($request)
+    {
+        $user = new self();
+        $user->name = $request->employee_name;
+        $user->role_id = $request->role_id;
+        $user->created_at = time();
+        $user->updated_at = time();
+        return $user->save();
     }
 }

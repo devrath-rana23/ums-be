@@ -58,4 +58,14 @@ class Employee extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function createEmployee($request)
+    {
+        $employee = new \App\Models\Employee;
+        $employee->salary = $request->salary;
+        $employee->user_id = $request->user_id;
+        $employee->created_at = time();
+        $employee->updated_at = time();
+        return $employee->save();
+    }
 }

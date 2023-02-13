@@ -34,7 +34,10 @@ php artisan make:controller Api/EmployeeController --resource
 
 php artisan make:controller Api/AuthController
 
-# configure api.php file
+# configure api.php routes file
+
+# configure and install predis
+composer require predis/predis
 
 # integrate socialite
-
+composer require laravel/socialite
