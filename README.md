@@ -41,3 +41,6 @@ composer require predis/predis
 
 # integrate socialite
 composer require laravel/socialite
+
+# Run scheduler locally
+php artisan schedule:work

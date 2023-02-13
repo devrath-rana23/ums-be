@@ -89,7 +89,7 @@ class RoleController extends Controller
     public function edit($id): JsonResponse
     {
         try {
-            $data = Role::find($id)->toArray();
+            $data = Role::find($id);
             return response()->json([
                 'data' => $data,
                 'message' => trans('messages.role_fetched_successfully'),

@@ -89,7 +89,7 @@ class SkillController extends Controller
     public function edit($id): JsonResponse
     {
         try {
-            $data = Skill::find($id)->toArray();
+            $data = Skill::find($id);
             return response()->json([
                 'data' => $data,
                 'message' => trans('messages.skill_fetched_successfully'),
