@@ -16,5 +16,5 @@ return [
     'employee_created_successfully' => 'Employee created successfully.',
     'employee_updated_successfully' => 'Employee updated successfully.',
     'employee_deleted_successfully' => 'Employee deleted successfully.',
-
+    'csv_generation_inprocess' => 'Csv generating in background.',
 ];
