@@ -1,15 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ConfigController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\PeopleController;
-use App\Http\Controllers\UtilizationController;
-use App\Http\Controllers\ResourceAllocationController;
-use App\Http\Controllers\ExportCsvController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,7 +20,7 @@ Route::prefix('v1')->group(static function () {
                 [App\Http\Controllers\Api\EmployeeController::class, 'index']
             )->name('employee.list');
             Route::get(
-                "/employee/{id}",
+                "/" . config('constants.api.employee_common_string'),
                 [App\Http\Controllers\Api\EmployeeController::class, 'show']
             )->name('employee.details');
             Route::get(
@@ -37,7 +28,7 @@ Route::prefix('v1')->group(static function () {
                 [App\Http\Controllers\Api\EmployeeController::class, 'edit']
             )->name('employee.edit');
             Route::put(
-                "/employee/{id}",
+                "/" . config('constants.api.employee_common_string'),
                 [App\Http\Controllers\Api\EmployeeController::class, 'update']
             )->name('employee.update');
             Route::get(
@@ -45,11 +36,11 @@ Route::prefix('v1')->group(static function () {
                 [App\Http\Controllers\Api\EmployeeController::class, 'create']
             )->name('employee.create');
             Route::post(
-                "/employee/{id}",
+                "/" . config('constants.api.employee_common_string'),
                 [App\Http\Controllers\Api\EmployeeController::class, 'store']
             )->name('employee.store');
             Route::delete(
-                "/employee/{id}",
+                "/" . config('constants.api.employee_common_string'),
                 [App\Http\Controllers\Api\EmployeeController::class, 'destroy']
             )->name('employee.destroy');
         });
