@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Enums\Role;
+use App\Models\ContactInfo;
+use App\Models\Employee;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +45,7 @@ class AuthService
             $socialite = Socialite::driver('google');
             $socialiteUser = $socialite->stateless()->user();
         } catch (Exception $err) {
-            response()->json([
+            return response()->json([
                 'code' => $err,
                 'message' => 'Invalid credentials'
             ]);
@@ -54,9 +56,12 @@ class AuthService
             ], 404);
         }
         $userData = collect($socialiteUser->getRaw());
-        $user = User::where([['email', '=', $userData->get('email')], ['status', '=', 1]])->first();
-        if (!empty($user->email) && is_null($user->google_id)) {
-            User::where('email', $user->email)->update(['google_id' => $socialiteUser->getId()]);
+        $contact = ContactInfo::where('email', '=', $userData->get('email'))->first();
+        $employee = $contact->employee;
+        $user = $employee->user;
+        if (!empty($contact->email) && is_null($user->google_id)) {
+            $user->google_id = $socialiteUser->getId();
+            $user->save();
         }
         if (!$user) {
             return response()->json([
