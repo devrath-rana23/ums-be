@@ -4,7 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Jobs\CacheMastersDataJob;
+use App\Jobs\CacheingSkillMasterDataJob;
+use App\Jobs\CacheingRoleMasterDataJob;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,7 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new CacheMastersDataJob)->everyMinute();
+        $schedule->job(new CacheingSkillMasterDataJob)->everyMinute();
+        $schedule->job(new CacheingRoleMasterDataJob)->everyMinute();
     }
 
     /**

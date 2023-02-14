@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
-class CacheMastersDataJob implements ShouldQueue
+class CacheingRoleMasterDataJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,13 +37,8 @@ class CacheMastersDataJob implements ShouldQueue
         if ($redis::get('roles.list')) {
             $redis::del(('roles.list'));
         }
-        if ($redis::get('skills.list')) {
-            $redis::del(('skills.list'));
-        }
         $data = $role::all();
         $redis::set('roles.list', json_encode($data));
-        $data = $skill::all();
-        $redis::set('skills.list', json_encode($data));
-        Log::debug("CacheMastersDataJob: Succesfull {$data}");
+        Log::debug("CacheingRoleMasterDataJob: Succesfull {$data}");
     }
 }

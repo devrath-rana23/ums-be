@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class ExportSkillsCsvJob implements ShouldQueue
 {
@@ -30,6 +31,7 @@ class ExportSkillsCsvJob implements ShouldQueue
      */
     public function handle()
     {
+        Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Export Skills CSV: InProgress');
         // Open output stream
         $time = time();
         $handle = fopen("skill_{$time}.csv", 'w');
@@ -49,5 +51,6 @@ class ExportSkillsCsvJob implements ShouldQueue
         });
         // Close the output stream
         fclose($handle);
+        Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Export Skills CSV: Successful');
     }
 }
