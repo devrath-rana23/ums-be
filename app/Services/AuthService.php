@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Exception\ClientException;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GoogleProvider;
+use Laravel\Socialite\Two\InvalidStateException;
 
 /**
  * Class AuthService handles the authentication actions.
@@ -44,14 +45,16 @@ class AuthService
             /** @var GoogleProvider $socialite */
             $socialite = Socialite::driver('google');
             $socialiteUser = $socialite->stateless()->user();
-        } catch (Exception $err) {
+        } catch (InvalidStateException $err) {
             return response()->json([
                 'code' => $err,
+                'status' => 404,
                 'message' => 'Invalid credentials'
             ]);
         }
         if ($socialiteUser === null) {
             return response()->json([
+                'status' => 404,
                 'message' => 'Google user is null.'
             ], 404);
         }
@@ -65,6 +68,7 @@ class AuthService
         }
         if (!$user) {
             return response()->json([
+                'status' => 404,
                 'message' => 'Record not found.'
             ], 404);
         }
@@ -72,7 +76,8 @@ class AuthService
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user'   =>     $user
+            'user'   =>     $user,
+            'status' => 200,
         ]);
     }
 }

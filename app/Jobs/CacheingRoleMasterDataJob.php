@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Role;
-use App\Models\Skill;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,7 +31,7 @@ class CacheingRoleMasterDataJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle(Redis $redis, Role $role, Skill $skill)
+    public function handle(Redis $redis, Role $role)
     {
         if ($redis::get('roles.list')) {
             $redis::del(('roles.list'));
