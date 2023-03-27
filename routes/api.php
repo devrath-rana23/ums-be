@@ -22,11 +22,6 @@ Route::prefix('v1')->group(static function () {
             )
                 ->name('employee.list');
             Route::get(
-                "/" . config('constants.api.employee_common_string'),
-                [App\Http\Controllers\Api\EmployeeController::class, 'show']
-            )
-                ->name('employee.details');
-            Route::get(
                 "/employee/edit/{id}",
                 [App\Http\Controllers\Api\EmployeeController::class, 'edit']
             )
@@ -36,13 +31,8 @@ Route::prefix('v1')->group(static function () {
                 [App\Http\Controllers\Api\EmployeeController::class, 'update']
             )
                 ->name('employee.update');
-            Route::get(
-                "/employee/create/{id}",
-                [App\Http\Controllers\Api\EmployeeController::class, 'create']
-            )
-                ->name('employee.create');
             Route::post(
-                "/" . config('constants.api.employee_common_string'),
+                "/employee",
                 [App\Http\Controllers\Api\EmployeeController::class, 'store']
             )
                 ->name('employee.store');
