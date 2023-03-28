@@ -23,10 +23,14 @@ class EmployeeService
      * Display a listing of the resource.
      *
      */
-    public function index($queryString)
+    public function index()
     {
         try {
-            $data = User::all();
+            $data = User::with('role')->with('employee')->get();
+            foreach ($data as  $value) {
+                $value->employee->contactInfo;
+                $value->employee->skills;
+            }
             return response()->json([
                 'data' => $data,
                 'message' => trans('messages.employees_fetched_successfully'),

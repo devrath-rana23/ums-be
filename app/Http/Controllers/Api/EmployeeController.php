@@ -23,8 +23,7 @@ class EmployeeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $queryString = request()->query();
-        return $this->service->index($queryString);
+        return $this->service->index();
     }
 
     /**
