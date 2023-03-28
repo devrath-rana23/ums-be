@@ -31,7 +31,7 @@ class RoleController extends Controller
                     'status' => Response::HTTP_OK
                 ]);
             }
-            $data = Role::all();
+            $data = Role::paginate(10);
             Redis::set('roles.list', json_encode($data));
             return response()->json([
                 'data' => $data,
@@ -40,7 +40,7 @@ class RoleController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role List:'. $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role List:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -70,7 +70,7 @@ class RoleController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Create:'. $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Create:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -97,7 +97,7 @@ class RoleController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Edit:'. $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Edit:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -128,7 +128,7 @@ class RoleController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Update:'. $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Update:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -158,7 +158,7 @@ class RoleController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Delete:'. $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Role Delete:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),

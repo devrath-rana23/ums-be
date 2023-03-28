@@ -23,7 +23,6 @@ class SkillController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $queryString = request()->query();
             if (Redis::get('skills.list')) {
                 return response()->json([
                     'data' => json_decode(Redis::get('skills.list')),
@@ -32,7 +31,7 @@ class SkillController extends Controller
                     'status' => Response::HTTP_OK
                 ]);
             }
-            $data = Skill::all();
+            $data = Skill::paginate(10);
             Redis::set('skills.list', json_encode($data));
             return response()->json([
                 'data' => $data,

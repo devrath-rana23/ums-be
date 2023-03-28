@@ -28,7 +28,7 @@ class EmployeeService
     public function index()
     {
         try {
-            $data = User::with('role')->with('employee')->get();
+            $data = User::with('role')->with('employee')->paginate(10);
             foreach ($data as  $value) {
                 $value->employee->contactInfo;
                 $value->employee->skills;
@@ -40,7 +40,7 @@ class EmployeeService
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:'. $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -74,7 +74,7 @@ class EmployeeService
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:'. $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
