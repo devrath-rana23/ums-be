@@ -24,7 +24,16 @@ class Employee extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255',
+            'role_id' => 'required',
+            'avatar' => 'required',
+            'birth' => 'required',
+            'salary' => 'required',
+            'martial_status' => 'required',
+            'bonus' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'skills' => 'required',
         ];
     }
 }

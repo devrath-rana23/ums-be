@@ -38,9 +38,12 @@ class EmployeeSkillPivot extends Model
 
     public static function createEmployeeSkills($request)
     {
-        $role = new self();
-        $role->employee_id = $request->employee_id;
-        $role->skill_id = $request->skill_id;
-        $role->save();
+        $skills = explode(',', $request->skills);
+        foreach ($skills as $key => $value) {
+            $empSkill = new self();
+            $empSkill->employee_id = $request->employee_id;
+            $empSkill->skill_id = (int)$value;
+            $empSkill->save();
+        }
     }
 }
