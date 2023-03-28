@@ -45,8 +45,8 @@ class EmployeeService
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
                 'exception_message' => $ex,
-                'status' => Response::HTTP_NOT_FOUND
-            ], Response::HTTP_NOT_FOUND);
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
         }
     }
 
@@ -79,8 +79,8 @@ class EmployeeService
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
                 'exception_message' => $ex,
-                'status' => Response::HTTP_NOT_FOUND
-            ], Response::HTTP_NOT_FOUND);
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
         }
     }
 

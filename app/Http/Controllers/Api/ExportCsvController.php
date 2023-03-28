@@ -39,13 +39,13 @@ class ExportCsvController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Export Skills CSV: '.$ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Export Skills CSV: ' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
                 'exception_message' => $ex,
-                'status' => Response::HTTP_NOT_FOUND
-            ], Response::HTTP_NOT_FOUND);
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
         }
     }
 }

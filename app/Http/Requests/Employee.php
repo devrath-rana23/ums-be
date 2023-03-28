@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
@@ -47,16 +48,23 @@ class Employee extends FormRequest
     public function messages()
     {
         return [
-            "name.required" => "Please write a name",
+            "name.required" => "Please enter name",
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
+        $errors = $validator->errors()->toArray();
+        $errorMessage = "";
+        foreach ($errors as $key => $value) {
+            $errorMessage = isset($value[0]) && !empty($value[0]) ? $value[0] : "";
+            break;
+        }
         throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
+            'data' => [],
+            'message'   => $errorMessage,
+            'errors'      => $errors,
+            'status' => Response::HTTP_BAD_REQUEST
         ]));
     }
 }
