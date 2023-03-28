@@ -91,6 +91,7 @@ class EmployeeService
      */
     public function edit($id)
     {
+        return response()->json([]);
     }
 
     /**
@@ -101,6 +102,7 @@ class EmployeeService
      */
     public function update($request, $id)
     {
+        return response()->json([]);
     }
 
     /**
@@ -110,5 +112,6 @@ class EmployeeService
      */
     public function destroy($id)
     {
+        return response()->json([]);
     }
 }
