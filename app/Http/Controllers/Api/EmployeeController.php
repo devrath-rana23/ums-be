@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\EmployeeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\Employee as EmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -29,10 +30,10 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EmployeeRequest  $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(EmployeeRequest $request): JsonResponse
     {
         return $this->service->store($request);
     }
