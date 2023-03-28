@@ -5,11 +5,13 @@ namespace App\Services;
 use App\Enums\Role;
 use App\Models\ContactInfo;
 use App\Models\Employee;
+use App\Models\EmployeeSkillPivot;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Employee as EmployeeRequest;
 
 /**
  * Class EmployeeService handles the employees actions.
@@ -51,8 +53,9 @@ class EmployeeService
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EmployeeRequest  $request
      */
+
     public function store($request)
     {
         try {
@@ -62,6 +65,7 @@ class EmployeeService
                 Employee::createEmployee($request);
                 $request->request->add(['employee_id' => Employee::orderBy('id', 'desc')->first()->id]);
                 ContactInfo::createContactInfo($request);
+                EmployeeSkillPivot::createEmployeeSkills($request);
             });
             return response()->json([
                 'data' => [],

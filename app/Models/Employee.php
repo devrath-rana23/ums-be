@@ -62,7 +62,10 @@ class Employee extends Model
     public static function createEmployee($request)
     {
         $employee = new \App\Models\Employee;
+        $employee->birth = $request->birth;
         $employee->salary = $request->salary;
+        $employee->martial_status = $request->martial_status;
+        $employee->bonus = $request->bonus;
         $employee->user_id = $request->user_id;
         $employee->created_at = time();
         $employee->updated_at = time();

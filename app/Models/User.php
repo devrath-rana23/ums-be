@@ -14,6 +14,9 @@ class User extends Model
     use HasFactory;
     use Notifiable;
 
+    const STATUS_ACTIVE = 1;
+    const STATUS_IN_ACTIVE = 0;
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -61,6 +64,8 @@ class User extends Model
         $user = new self();
         $user->name = $request->employee_name;
         $user->role_id = $request->role_id;
+        $user->avatar = $request->avatar;
+        $user->status = self::STATUS_ACTIVE;
         $user->created_at = time();
         $user->updated_at = time();
         return $user->save();
