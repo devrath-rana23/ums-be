@@ -40,7 +40,7 @@ class EmployeeService
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:', $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:'. $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -74,7 +74,7 @@ class EmployeeService
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:', $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee List:'. $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),

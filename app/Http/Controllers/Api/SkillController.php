@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Skill as SkillRequest;
 
 class SkillController extends Controller
 {
@@ -40,7 +41,7 @@ class SkillController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill List:', $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill List: ' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -53,16 +54,17 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SkillRequest  $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(SkillRequest $request): JsonResponse
     {
         try {
             Skill::createSkill($request);
             if (Redis::get('skills.list')) {
                 Redis::del(('skills.list'));
             }
+
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.skill_created_successfully'),
@@ -70,7 +72,7 @@ class SkillController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Create:', $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Create: ' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -97,7 +99,7 @@ class SkillController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Edit:', $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Edit:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -128,7 +130,7 @@ class SkillController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Update:', $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Update:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
@@ -158,7 +160,7 @@ class SkillController extends Controller
                 'status' => Response::HTTP_OK
             ]);
         } catch (Exception $ex) {
-            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Delete:', $ex);
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Skill Delete:' . $ex);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.something_went_wrong'),
