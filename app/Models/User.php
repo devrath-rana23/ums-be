@@ -62,7 +62,7 @@ class User extends Model
     public static function createUser($request, $imagePath = "")
     {
         $user = new self();
-        $user->name = $request->employee_name;
+        $user->name = $request->name;
         $user->role_id = $request->role_id;
         $user->avatar = $imagePath;
         $user->status = self::STATUS_ACTIVE;

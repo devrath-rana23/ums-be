@@ -9,6 +9,8 @@ class EmployeeSkillPivot extends Model
 {
     use HasFactory;
 
+    public $table = "employee_skill";
+    
     /**
      * Indicates if the model should be timestamped.
      *
@@ -38,7 +40,7 @@ class EmployeeSkillPivot extends Model
 
     public static function createEmployeeSkills($request)
     {
-        $skills = explode(',', $request->skills);
+        $skills = $request->skills;
         foreach ($skills as $key => $value) {
             $empSkill = new self();
             $empSkill->employee_id = $request->employee_id;
