@@ -94,7 +94,25 @@ class EmployeeService
      */
     public function edit($id)
     {
-        return response()->json([]);
+        try {
+            $data = User::with('role')->with('employee')->find($id);
+            $data->employee->contactInfo;
+            $data->employee->skills;
+            return response()->json([
+                'data' => $data,
+                'message' => trans('messages.employee_fetched_successfully'),
+                'exception_message' => '',
+                'status' => Response::HTTP_OK
+            ]);
+        } catch (Exception $ex) {
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee Edit:' . $ex);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.something_went_wrong'),
+                'exception_message' => $ex,
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
+        }
     }
 
     /**
