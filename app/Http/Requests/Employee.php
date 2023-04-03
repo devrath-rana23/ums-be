@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -34,12 +35,13 @@ class Employee extends FormRequest
             'salary' => 'required|numeric',
             'martial_status' => 'required|in:single,married,divorced',
             'bonus' => 'required|numeric',
-            'phone' => 'required|numeric|digits:10',
-            'email' => 'required|email',
+            'phone' => 'required|numeric|digits:10|unique:App\Models\ContactInfo,phone',
+            'email' => 'required|email|unique:App\Models\ContactInfo,email',
             'skills' => 'required',
         ];
     }
-
+    // . User::find(auth()->user()->id)->employee->id
+    // . User::find(auth()->user()->id)->employee->id
     /**
      * Custom message for validation
      *

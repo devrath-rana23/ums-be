@@ -19,7 +19,7 @@ class CreateContactInfosTable extends Migration
             $table->id();
             $table->string('phone', 100)->unique();
             $table->string('email', 100)->unique();
-            $table->foreignId('employee_id')->constrained();
+            $table->foreignId('employee_id')->constrained('employees')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
         });

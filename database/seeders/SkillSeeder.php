@@ -24,7 +24,7 @@ class SkillSeeder extends Seeder
         //     ->count(50000)
         //     ->create(['created_at' => time(), 'updated_at' => time()]);
 
-        for ($i = 50000; $i < 1150000; $i++) {
+        for ($i = 1; $i < 100; $i++) {
             Skill::insert(
                 [
                     'name' => "{$i}-laravel-{$i}",

@@ -69,6 +69,6 @@ class EmployeeController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        return $this->service->store($id);
+        return $this->service->destroy($id);
     }
 }

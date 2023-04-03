@@ -18,7 +18,7 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->dateTime('birth')->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('salary');

@@ -17,6 +17,7 @@ class RoleSeeder extends Seeder
         $inputData = [
             ['id' => 1, 'name' => 'superadmin', 'created_at' => time(), 'updated_at' => time()],
             ['id' => 2, 'name' => 'admin', 'created_at' => time(), 'updated_at' => time()],
+            ['id' => 3, 'name' => 'pm', 'created_at' => time(), 'updated_at' => time()],
         ];
         Role::insert($inputData);
     }

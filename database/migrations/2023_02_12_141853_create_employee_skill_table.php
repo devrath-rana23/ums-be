@@ -16,8 +16,8 @@ class CreateEmployeeSkillTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('employee_skill', function (Blueprint $table) {
-            $table->foreignId('employee_id');
-            $table->foreignId('skill_id');
+            $table->foreignId('employee_id')->constrained('employees')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('skill_id')->constrained('skills')->cascadeOnDelete()->cascadeOnUpdate();
         });
 
         Schema::enableForeignKeyConstraints();
