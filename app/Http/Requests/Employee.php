@@ -28,14 +28,14 @@ class Employee extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'role_id' => 'required',
-            'avatar' => 'required',
+            'role_id' => 'required|numeric',
+            'avatar' => 'required|image',
             'birth' => 'required',
-            'salary' => 'required',
-            'martial_status' => 'required',
-            'bonus' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
+            'salary' => 'required|numeric',
+            'martial_status' => 'required|in:single,married,divorced',
+            'bonus' => 'required|numeric',
+            'phone' => 'required|numeric|digits:10',
+            'email' => 'required|email',
             'skills' => 'required',
         ];
     }

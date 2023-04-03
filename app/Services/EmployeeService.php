@@ -59,8 +59,11 @@ class EmployeeService
     public function store($request)
     {
         try {
-            DB::transaction(function () use ($request) {
-                User::createUser($request);
+            $imageName = time() . '.' . $request->avatar->extension();
+            $request->avatar->move(public_path('images'), $imageName);
+            $imagePath = "/" . $imageName;
+            DB::transaction(function () use ($request, $imagePath) {
+                User::createUser($request, $imagePath);
                 $request->request->add(['user_id' => User::orderBy('id', 'desc')->first()->id]);
                 Employee::createEmployee($request);
                 $request->request->add(['employee_id' => Employee::orderBy('id', 'desc')->first()->id]);

@@ -59,12 +59,12 @@ class User extends Model
         return $this->belongsTo(Role::class);
     }
 
-    public static function createUser($request)
+    public static function createUser($request, $imagePath = "")
     {
         $user = new self();
         $user->name = $request->employee_name;
         $user->role_id = $request->role_id;
-        $user->avatar = $request->avatar;
+        $user->avatar = $imagePath;
         $user->status = self::STATUS_ACTIVE;
         $user->created_at = time();
         $user->updated_at = time();
