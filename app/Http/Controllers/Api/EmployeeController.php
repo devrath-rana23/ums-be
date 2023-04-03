@@ -56,7 +56,7 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function update(EmployeeService $request, $id): JsonResponse
+    public function update(EmployeeRequest $request, $id): JsonResponse
     {
         return $this->service->update($request, $id);
     }

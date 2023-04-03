@@ -35,8 +35,8 @@ class Employee extends FormRequest
             'salary' => 'required|numeric',
             'martial_status' => 'required|in:single,married,divorced',
             'bonus' => 'required|numeric',
-            'phone' => 'required|numeric|digits:10|unique:App\Models\ContactInfo,phone|exclude_if:phone,' . User::find(auth()->user()->id)->employee->contactInfo->phone,
-            'email' => 'required|email|unique:App\Models\ContactInfo,email|exclude_if:email,' . User::find(auth()->user()->id)->employee->contactInfo->email,
+            'phone' => 'required|numeric|digits:10|unique:App\Models\ContactInfo,phone',
+            'email' => 'required|email|unique:App\Models\ContactInfo,email|exclude_if:email',
             'skills' => 'required',
         ];
     }
