@@ -123,7 +123,30 @@ class EmployeeService
      */
     public function update($request, $id)
     {
-        return response()->json([]);
+        try {
+            DB::transaction(function () use ($request) {
+                // User::createUser($request, $imagePath);
+                // $request->request->add(['user_id' => User::orderBy('id', 'desc')->first()->id]);
+                // Employee::createEmployee($request);
+                // $request->request->add(['employee_id' => Employee::orderBy('id', 'desc')->first()->id]);
+                // ContactInfo::createContactInfo($request);
+                // EmployeeSkillPivot::createEmployeeSkills($request);
+            });
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.employee_updated_successfully'),
+                'exception_message' => '',
+                'status' => Response::HTTP_OK
+            ]);
+        } catch (Exception $ex) {
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Employee Update:' . $ex);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.something_went_wrong'),
+                'exception_message' => $ex,
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
+        }
     }
 
     /**
