@@ -71,4 +71,18 @@ class Employee extends Model
         $employee->updated_at = time();
         return $employee->save();
     }
+
+    public static function updateEmployee($request)
+    {
+        $updateData = [
+            "birth" => $request->birth,
+            "salary" => $request->salary,
+            "martial_status" => $request->martial_status,
+            "bonus" => $request->bonus,
+            "updated_at" => time(),
+        ];
+        $employee = self::where('user_id', $request->user_id);
+        $employee->update($updateData);
+        return $employee;
+    }
 }

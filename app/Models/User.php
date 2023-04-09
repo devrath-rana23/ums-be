@@ -70,4 +70,16 @@ class User extends Model
         $user->updated_at = time();
         return $user->save();
     }
+
+    public static function updateUser($request, $id)
+    {
+        $updateData = [
+            "name" => $request->name,
+            "role_id" => $request->role_id,
+            "updated_at" => time(),
+        ];
+        $user = self::where('id', $id);
+        $user->update($updateData);
+        return $user;
+    }
 }

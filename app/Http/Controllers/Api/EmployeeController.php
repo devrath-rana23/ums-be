@@ -67,7 +67,6 @@ class EmployeeController extends Controller
             'salary' => 'required|numeric',
             'martial_status' => 'required|in:single,married,divorced',
             'bonus' => 'required|numeric',
-            'skills' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules);
         $errors = $validator->errors()->toArray();

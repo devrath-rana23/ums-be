@@ -124,13 +124,10 @@ class EmployeeService
     public function update($request, $id)
     {
         try {
-            DB::transaction(function () use ($request) {
-                // User::createUser($request, $imagePath);
-                // $request->request->add(['user_id' => User::orderBy('id', 'desc')->first()->id]);
-                // Employee::createEmployee($request);
-                // $request->request->add(['employee_id' => Employee::orderBy('id', 'desc')->first()->id]);
-                // ContactInfo::createContactInfo($request);
-                // EmployeeSkillPivot::createEmployeeSkills($request);
+            DB::transaction(function () use ($request, $id) {
+                User::updateUser($request, $id);
+                $request->request->add(['user_id' => $id]);
+                Employee::updateEmployee($request);
             });
             return response()->json([
                 'data' => [],
