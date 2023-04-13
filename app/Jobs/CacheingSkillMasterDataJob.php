@@ -36,7 +36,7 @@ class CacheingSkillMasterDataJob implements ShouldQueue
         if ($redis::get('skills.list')) {
             $redis::del(('skills.list'));
         }
-        $data = $skill::all();
+        $data = $skill::paginate(10);
         $redis::set('skills.list', json_encode($data));
         Log::debug("CacheingSkillMasterDataJob: Succesfull {$data}");
     }
