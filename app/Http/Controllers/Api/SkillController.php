@@ -87,7 +87,7 @@ class SkillController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function edit($id): JsonResponse
+    public function show($id): JsonResponse
     {
         try {
             $data = Skill::find($id);

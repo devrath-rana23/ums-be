@@ -86,7 +86,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function edit($id): JsonResponse
+    public function show($id): JsonResponse
     {
         try {
             $data = Role::find($id);
