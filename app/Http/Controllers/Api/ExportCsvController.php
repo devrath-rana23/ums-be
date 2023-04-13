@@ -31,7 +31,9 @@ class ExportCsvController extends Controller
     public function exportSkills(): JsonResponse
     {
         try {
-            ExportSkillsCsvJob::dispatch();
+            $userName = auth()->user()->name;
+            $userGoogleId = auth()->user()->google_id;
+            ExportSkillsCsvJob::dispatch($userName, $userGoogleId);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.csv_generation_inprocess'),

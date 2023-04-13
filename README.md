@@ -47,3 +47,8 @@ php artisan schedule:work
 https://www.honeybadger.io/blog/job-queues-and-workers-in-laravel-apps/
 https://laravel.com/docs/9.x/queues#creating-jobs
 https://laravel.com/docs/9.x/scheduling#scheduling-artisan-commands
+
+# make failed_jobs table
+php artisan queue:failed-table
+ 
+php artisan migrate
