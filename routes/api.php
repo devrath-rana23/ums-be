@@ -42,6 +42,8 @@ Route::prefix('v1')->group(static function () {
             ->name('employee.destroy');
         Route::prefix('export-csv')->group(function () {
             Route::get('skill', [App\Http\Controllers\Api\ExportCsvController::class, 'exportSkills']);
+            Route::get('role', [App\Http\Controllers\Api\ExportCsvController::class, 'exportRoles']);
+            Route::get('employee', [App\Http\Controllers\Api\ExportCsvController::class, 'exportEmployees']);
         });
         Route::middleware([CheckAdmin::class])->group(function () {
             Route::apiResource("roles", App\Http\Controllers\Api\RoleController::class);

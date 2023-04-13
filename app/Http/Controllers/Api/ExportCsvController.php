@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ExportEmployeesCsvJob;
+use App\Jobs\ExportRolesCsvJob;
 use App\Jobs\ExportSkillsCsvJob;
 use App\Models\Skill;
 use Illuminate\Http\Request;
@@ -23,7 +25,6 @@ class ExportCsvController extends Controller
      */
 
     /**
-     * Returns the Google url.
      *
      * @return JsonResponse
      */
@@ -35,6 +36,64 @@ class ExportCsvController extends Controller
             $userGoogleId = auth()->user()->google_id;
             $userId = auth()->user()->id;
             ExportSkillsCsvJob::dispatch($userName, $userGoogleId, $userId);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.csv_generation_inprocess'),
+                'exception_message' => '',
+                'status' => Response::HTTP_OK
+            ]);
+        } catch (Exception $ex) {
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Export Skills CSV: ' . $ex);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.something_went_wrong'),
+                'exception_message' => $ex,
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
+        }
+    }
+
+    /**
+     *
+     * @return JsonResponse
+     */
+
+    public function exportRoles(): JsonResponse
+    {
+        try {
+            $userName = auth()->user()->name;
+            $userGoogleId = auth()->user()->google_id;
+            $userId = auth()->user()->id;
+            ExportRolesCsvJob::dispatch($userName, $userGoogleId, $userId);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.csv_generation_inprocess'),
+                'exception_message' => '',
+                'status' => Response::HTTP_OK
+            ]);
+        } catch (Exception $ex) {
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Export Skills CSV: ' . $ex);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.something_went_wrong'),
+                'exception_message' => $ex,
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
+        }
+    }
+
+    /**
+     *
+     * @return JsonResponse
+     */
+
+    public function exportEmployees(): JsonResponse
+    {
+        try {
+            $userName = auth()->user()->name;
+            $userGoogleId = auth()->user()->google_id;
+            $userId = auth()->user()->id;
+            ExportEmployeesCsvJob::dispatch($userName, $userGoogleId, $userId);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.csv_generation_inprocess'),
