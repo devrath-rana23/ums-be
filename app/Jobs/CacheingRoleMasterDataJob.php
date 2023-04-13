@@ -36,7 +36,7 @@ class CacheingRoleMasterDataJob implements ShouldQueue
         if ($redis::get('roles.list')) {
             $redis::del(('roles.list'));
         }
-        $data = $role::paginate(10);
+        $data = $role::all();
         $redis::set('roles.list', json_encode($data));
         Log::debug("CacheingRoleMasterDataJob: Succesfull {$data}");
     }

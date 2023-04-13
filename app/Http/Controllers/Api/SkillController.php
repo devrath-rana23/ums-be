@@ -23,16 +23,7 @@ class SkillController extends Controller
     public function index(): JsonResponse
     {
         try {
-            if (Redis::get('skills.list')) {
-                return response()->json([
-                    'data' => json_decode(Redis::get('skills.list')),
-                    'message' => trans('messages.skill_fetched_successfully'),
-                    'exception_message' => '',
-                    'status' => Response::HTTP_OK
-                ]);
-            }
             $data = Skill::paginate(10);
-            Redis::set('skills.list', json_encode($data));
             return response()->json([
                 'data' => $data,
                 'message' => trans('messages.skills_fetched_successfully'),
@@ -60,10 +51,6 @@ class SkillController extends Controller
     {
         try {
             Skill::createSkill($request);
-            if (Redis::get('skills.list')) {
-                Redis::del(('skills.list'));
-            }
-
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.skill_created_successfully'),
@@ -119,9 +106,6 @@ class SkillController extends Controller
     {
         try {
             Skill::updateSkill($request, $id);
-            if (Redis::get('skills.list')) {
-                Redis::del(('skills.list'));
-            }
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.skill_updated_successfully'),
@@ -149,9 +133,6 @@ class SkillController extends Controller
     {
         try {
             Skill::destroy($id);
-            if (Redis::get('skills.list')) {
-                Redis::del(('skills.list'));
-            }
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.skill_deleted_successfully'),

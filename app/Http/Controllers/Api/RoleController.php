@@ -31,7 +31,7 @@ class RoleController extends Controller
                     'status' => Response::HTTP_OK
                 ]);
             }
-            $data = Role::paginate(10);
+            $data = Role::all();
             Redis::set('roles.list', json_encode($data));
             return response()->json([
                 'data' => $data,
