@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\ExportFile;
-use App\Models\Skill;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use stdClass;
 
-class ExportSkillsCsvJob implements ShouldQueue
+class ExportEmployeesCsvJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -42,10 +42,10 @@ class ExportSkillsCsvJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::debug($this->name . '_' . $this->google_id . '_' . 'Export Skills CSV: InProgress');
+        Log::debug($this->name . '_' . $this->google_id . '_' . 'Export Users CSV: InProgress');
         // Open output stream
         $time = time();
-        $entityType = ExportFile::SKILLS_ENTITY;
+        $entityType = ExportFile::USERS_ENTITY;
         $entityName = ExportFile::ENTITY_NAME[$entityType];
         $filename = "{$entityName}_{$time}.csv";
         $created_by = $this->user_id;
@@ -56,12 +56,12 @@ class ExportSkillsCsvJob implements ShouldQueue
             'id',
             'name',
         ]);
-        Skill::chunk(10, function ($skills) use ($handle) {
-            foreach ($skills as $skill) {
+        User::chunk(10, function ($users) use ($handle) {
+            foreach ($users as $user) {
                 // Add a new row with data
                 fputcsv($handle, [
-                    $skill->id,
-                    $skill->name,
+                    $user->id,
+                    $user->name,
                 ]);
             }
         });
@@ -78,6 +78,6 @@ class ExportSkillsCsvJob implements ShouldQueue
 
         ExportFile::createExportFile($request);
 
-        Log::debug($this->name . '_' . $this->google_id . '_' . 'Export Skills CSV: Successful');
+        Log::debug($this->name . '_' . $this->google_id . '_' . 'Export Users CSV: Successful');
     }
 }

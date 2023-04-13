@@ -60,14 +60,6 @@ class ExportFile extends Model
 
     public static function createExportFile($request)
     {
-
-        $exportFile = new self();
-        $exportFile->entity_type = $request->entity_type;
-        $exportFile->user_id = $request->user_id;
-        $exportFile->filename = $request->filename;
-        $exportFile->filepath = $request->filepath;
-        $exportFile->created_at = time();
-        $exportFile->updated_at = time();
-        $exportFile->save();
+        self::insert($request);
     }
 }
