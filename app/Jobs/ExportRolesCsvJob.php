@@ -68,13 +68,13 @@ class ExportRolesCsvJob implements ShouldQueue
         // Close the output stream
         fclose($handle);
 
-        $request = new stdClass();
-        $request->entity_type = $entityType;
-        $request->user_id = $created_by;
-        $request->filename = $filename;
-        $request->filepath = $filepath;
-        $request->created_at = time();
-        $request->updated_at = time();
+        $request = [];
+        $request["entity_type"] = $entityType;
+        $request["user_id"] = $created_by;
+        $request["filename"] = $filename;
+        $request["filepath"] = $filepath;
+        $request["created_at"] = time();
+        $request["updated_at"] = time();
 
         ExportFile::createExportFile($request);
 
