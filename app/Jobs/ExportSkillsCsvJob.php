@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\ExportFile;
 use App\Models\Skill;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 
 class ExportSkillsCsvJob implements ShouldQueue
 {
@@ -19,15 +21,18 @@ class ExportSkillsCsvJob implements ShouldQueue
 
     public $google_id;
 
+    public $user_id;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($userName, $userGoogleId)
+    public function __construct($userName, $userGoogleId, $userId)
     {
         $this->name = $userName;
         $this->google_id = $userGoogleId;
+        $this->user_id = $userId;
     }
 
     /**
@@ -40,7 +45,12 @@ class ExportSkillsCsvJob implements ShouldQueue
         Log::debug($this->name . '_' . $this->google_id . '_' . 'Export Skills CSV: InProgress');
         // Open output stream
         $time = time();
-        $handle = fopen("skill_{$time}.csv", 'w');
+        $entityType = ExportFile::SKILLS_ENTITY;
+        $entityName = ExportFile::ENTITY_NAME[$entityType];
+        $filename = "{$entityName}_{$time}.csv";
+        $created_by = $this->user_id;
+        $filepath = config("filesystems.disks.public.url") . "/{$filename}";
+        $handle = fopen(config("filesystems.disks.public.root") . "/{$filename}", 'w');
         // Add CSV headers
         fputcsv($handle, [
             'id',
@@ -57,6 +67,15 @@ class ExportSkillsCsvJob implements ShouldQueue
         });
         // Close the output stream
         fclose($handle);
+
+        $request = new stdClass();
+        $request->entity_type = $entityType;
+        $request->user_id = $created_by;
+        $request->filename = $filename;
+        $request->filepath = $filepath;
+
+        ExportFile::createExportFile($request);
+
         Log::debug($this->name . '_' . $this->google_id . '_' . 'Export Skills CSV: Successful');
     }
 }

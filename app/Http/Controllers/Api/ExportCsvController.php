@@ -33,7 +33,8 @@ class ExportCsvController extends Controller
         try {
             $userName = auth()->user()->name;
             $userGoogleId = auth()->user()->google_id;
-            ExportSkillsCsvJob::dispatch($userName, $userGoogleId);
+            $userId = auth()->user()->id;
+            ExportSkillsCsvJob::dispatch($userName, $userGoogleId, $userId);
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.csv_generation_inprocess'),
