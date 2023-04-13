@@ -46,7 +46,7 @@ class ExportSkillsCsvJob implements ShouldQueue
             'id',
             'name',
         ]);
-        Skill::chunk(100, function ($skills) use ($handle) {
+        Skill::chunk(10, function ($skills) use ($handle) {
             foreach ($skills as $skill) {
                 // Add a new row with data
                 fputcsv($handle, [
