@@ -53,21 +53,30 @@ class ExportEmployeesCsvJob implements ShouldQueue
         $handle = fopen(config("filesystems.disks.public.root") . "/{$filename}", 'w');
         // Add CSV headers
         fputcsv($handle, [
-            'id',
             'name',
+            'role',
+            'birth',
+            'salary',
+            'marital status',
+            'bonus',
         ]);
-        User::chunk(10, function ($users) use ($handle) {
-            foreach ($users as $user) {
-                // Add a new row with data
-                fputcsv($handle, [
-                    $user->id,
-                    $user->name,
-                ]);
-            }
-        });
+        $data = User::with('role')->with('employee')->get();
+        foreach ($data as  $value) {
+            $value->employee->contactInfo;
+            $value->employee->skills;
+        }
+        foreach ($data as $user) {
+            // Add a new row with data
+            fputcsv($handle, [
+                $user->name,
+                $user->role->name,
+                $user->employee->birth,
+                $user->employee->martial_status,
+                $user->employee->bonus,
+            ]);
+        }
         // Close the output stream
         fclose($handle);
-
         $request = [];
         $request["entity_type"] = $entityType;
         $request["user_id"] = $created_by;
