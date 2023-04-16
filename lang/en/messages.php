@@ -1,6 +1,7 @@
 <?php
 return [
     'something_went_wrong' => 'Something went wrong.',
+    'success' => 'Success.',
     'roles_fetched_successfully' => 'Roles fetched successfully.',
     'role_fetched_successfully' => 'Role fetched successfully.',
     'role_created_successfully' => 'Role created successfully.',

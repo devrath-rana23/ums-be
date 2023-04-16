@@ -49,5 +49,8 @@ Route::prefix('v1')->group(static function () {
             Route::apiResource("roles", App\Http\Controllers\Api\RoleController::class);
             Route::apiResource("skills", App\Http\Controllers\Api\SkillController::class);
         });
+        Route::prefix('download')->group(function () {
+            Route::get('list', [App\Http\Controllers\Api\DownloadCsvController::class, 'index']);
+        });
     });
 });

@@ -20,9 +20,6 @@ class AuthController extends Controller
     {
         $this->service = $service;
     }
-    /**
-     * @var string The name of the tag for the OpenAPI documentation.
-     */
 
     /**
      * Returns the Google url.

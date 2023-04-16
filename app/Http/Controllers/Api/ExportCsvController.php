@@ -21,10 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ExportCsvController extends Controller
 {
     /**
-     * @var string The name of the tag for the OpenAPI documentation.
-     */
-
-    /**
      *
      * @return JsonResponse
      */
