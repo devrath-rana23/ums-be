@@ -36,7 +36,7 @@ class Employee extends FormRequest
             'martial_status' => 'required|in:single,married,divorced',
             'bonus' => 'required|numeric',
             'phone' => 'required|numeric|digits:10|unique:App\Models\ContactInfo,phone',
-            'email' => 'required|email|unique:App\Models\ContactInfo,email|exclude_if:email',
+            'email' => 'required|email|unique:App\Models\ContactInfo,email',
             'skills' => 'required',
         ];
     }
