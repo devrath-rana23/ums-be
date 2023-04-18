@@ -57,10 +57,6 @@ class ExportCsvController extends Controller
     public function exportRoles(): JsonResponse
     {
         try {
-            $userName = auth()->user()->name;
-            $userGoogleId = auth()->user()->google_id;
-            $userId = auth()->user()->id;
-            //csv generation synchronously code from backend TO DO
             $data = Role::all();
             $csvArr = [];
             $requiredFieldsArray = [
