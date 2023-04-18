@@ -23,7 +23,8 @@ class SkillController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $data = Skill::paginate(10);
+            $queryString = request()->query();
+            $data = Skill::paginate($queryString['limit'] ?? 10);
             return response()->json([
                 'data' => $data,
                 'message' => trans('messages.skills_fetched_successfully'),

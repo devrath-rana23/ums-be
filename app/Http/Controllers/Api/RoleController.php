@@ -22,7 +22,6 @@ class RoleController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $queryString = request()->query();
             if (Redis::get('roles.list')) {
                 return response()->json([
                     'data' => json_decode(Redis::get('roles.list')),

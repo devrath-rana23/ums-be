@@ -25,10 +25,10 @@ class EmployeeService
      * Display a listing of the resource.
      *
      */
-    public function index()
+    public function index($queryString)
     {
         try {
-            $data = User::with('role')->with('employee')->paginate(10);
+            $data = User::with('role')->with('employee')->paginate($queryString['limit'] ?? 10);
             foreach ($data as  $value) {
                 $value->employee->contactInfo;
                 $value->employee->skills;

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\ExportEmployeesCsvJob;
-use App\Jobs\ExportRolesCsvJob;
 use App\Jobs\ExportSkillsCsvJob;
 use App\Models\Skill;
 use Illuminate\Http\Request;
@@ -60,7 +59,11 @@ class ExportCsvController extends Controller
             $userName = auth()->user()->name;
             $userGoogleId = auth()->user()->google_id;
             $userId = auth()->user()->id;
-            ExportRolesCsvJob::dispatch($userName, $userGoogleId, $userId);
+            //csv generation synchronously code from backend TO DO
+
+
+
+
             return response()->json([
                 'data' => [],
                 'message' => trans('messages.csv_generation_inprocess'),

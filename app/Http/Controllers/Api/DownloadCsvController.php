@@ -20,7 +20,7 @@ class DownloadCsvController extends Controller
     {
         try {
             $queryString = request()->query();
-            $data = ExportFile::paginate(10);
+            $data = ExportFile::paginate($queryString['limit'] ?? 10);
             return response()->json([
                 'data' => $data,
                 'message' => trans('messages.success'),
