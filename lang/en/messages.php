@@ -19,4 +19,5 @@ return [
     'employee_deleted_successfully' => 'Employee deleted successfully.',
     'csv_generation_inprocess' => 'Csv generating in background.',
     'csv_generated_successfully' => 'Csv generated successfully.',
+    'file_deleted_success' => 'File deleted successfully.',
 ];

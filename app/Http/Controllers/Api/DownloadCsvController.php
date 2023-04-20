@@ -37,4 +37,30 @@ class DownloadCsvController extends Controller
             ]);
         }
     }
+
+    /**
+     *
+     * @return JsonResponse
+     */
+
+    public function destroy($id): JsonResponse
+    {
+        try {
+            ExportFile::destroy($id);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.file_deleted_success'),
+                'exception_message' => '',
+                'status' => Response::HTTP_OK
+            ]);
+        } catch (Exception $ex) {
+            Log::debug(auth()->user()->name . '_' . auth()->user()->google_id . '_' . 'Downloaded File Deleted:' . $ex);
+            return response()->json([
+                'data' => [],
+                'message' => trans('messages.something_went_wrong'),
+                'exception_message' => $ex,
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
+        }
+    }
 }

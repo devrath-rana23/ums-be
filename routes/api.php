@@ -51,6 +51,7 @@ Route::prefix('v1')->group(static function () {
         });
         Route::prefix('download')->group(function () {
             Route::get('list', [App\Http\Controllers\Api\DownloadCsvController::class, 'index']);
+            Route::delete('delete/{id}', [App\Http\Controllers\Api\DownloadCsvController::class, 'destroy']);
         });
     });
 });
