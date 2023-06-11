@@ -1,0 +1,35 @@
+{
+    "version": 2,
+    "functions": {
+        "app/index.php": {
+            "runtime": "vercel-php@0.3.1"
+        }
+    },
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/app/index.php"
+        }
+    ],
+    "env": {
+        "APP_NAME": "Laravel Vercel",
+        "APP_ENV": "production",
+        "APP_DEBUG": "false",
+        "APP_URL": "https://laravel-vercel.vercel.app",
+        "GOOGLE_CLIENT_ID": "1507515451-ocekqkev34cimt1aiadf85d77n3j18gv.apps.googleusercontent.com",
+        "GOOGLE_CLIENT_SECRET": "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",
+        "GOOGLE_REDIRECT_URI": "http://localhost:3000/auth/google/callback",
+        "APP_CONFIG_CACHE": "/tmp/config.php",
+        "APP_EVENTS_CACHE": "/tmp/events.php",
+        "APP_PACKAGES_CACHE": "/tmp/packages.php",
+        "APP_ROUTES_CACHE": "/tmp/routes.php",
+        "APP_SERVICES_CACHE": "/tmp/services.php",
+        "VIEW_COMPILED_PATH": "/tmp",
+        "CACHE_DRIVER": "array",
+        "LOG_CHANNEL": "stderr",
+        "SESSION_DRIVER": "cookie",
+        "VIEW_COMPILED_PATH": "/tmp/views",
+        "SSR_TEMP_PATH": "/tmp/ssr",
+        "NODE_PATH": "node"
+    }
+}
